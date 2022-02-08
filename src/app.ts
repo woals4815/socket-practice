@@ -30,12 +30,12 @@ app.get('/', (req, res) => {
 let i = 0;
 
 io.on('connection', (socket) => {
+  //전체 모두에게 말해줌
   io.emit('user_enter', `User${++i}이 입장했습니다.`);
+  //연결된 클라이언트의 메세지를 받음
   socket.on('chat message', (msg) => {
+    //전체 클라이언트에 broadcasting
     io.emit('chat message', msg);
-  });
-  socket.on('user_enter', (msg) => {
-    io.emit('user_enter', msg);
   });
 });
 
